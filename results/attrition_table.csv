@@ -1,0 +1,6 @@
+Criteria,n_ptid
+All Patients in Optum,2915887
+At least one inpatient or outpatient IBD diagnosis between 2007-01-01 to 2017-12-31,454769
+"At least two IBD diagnoses, with at least one office visit (outpatient)",159873
+At least 365 days of follow up/activity in EHR (last active date - first IBD date),137944
+Over the age of 18 at the index IBD date (first date of IBD diagnosis),132452

@@ -1,0 +1,4 @@
+Corticosteroid missing 7 day supply filter 
+Number of rows before filter: 780559 
+Nmber of rows after filter: 718432 
+Percent excluded: 8.0

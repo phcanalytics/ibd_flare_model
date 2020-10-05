@@ -1,0 +1,33 @@
+,TEST_NAME,TEST_TYPE,RESULT_UNIT,VALUE_WITHIN_RANGE,Count(*)
+0,Glucose.random,CHEMISTRY,mg/dl,Y,66861164
+1,C-reactive protein (CRP),CHEMISTRY,mg/l,Y,1795627
+2,Eosinophil.percent,HEMATOLOGY,%,Y,22329614
+4,Platelet mean volume (MPV),HEMATOLOGY,fl,Y,21279280
+5,Platelet count (PLT),HEMATOLOGY,x10^3/ul,Y,31083516
+6,Mean corpuscular hemoglobin concentration (MCHC),HEMATOLOGY,g/dl,Y,28156604
+7,Calcium.ionized,CHEMISTRY,mg/dl,Y,2274511
+8,Sodium (Na),CHEMISTRY,mmol/l,Y,34368882
+10,White blood cell count (WBC),HEMATOLOGY,x10^3/ul,Y,31575681
+11,Basophil.absolute,HEMATOLOGY,x10^3/ul,Y,21056905
+12,Calcium.total,CHEMISTRY,mg/dl,Y,32265725
+13,Potassium (K),CHEMISTRY,mmol/l,Y,35375563
+14,Mean corpuscular volume (MCV),HEMATOLOGY,fl,Y,30669691
+15,Creatinine,CHEMISTRY,mg/dl,Y,34362941
+16,Alanine aminotransferase (ALT),CHEMISTRY,u/l,Y,19948458
+17,Bilirubin.total,CHEMISTRY,mg/dl,Y,19119984
+18,Blood urea nitrogen (BUN),CHEMISTRY,mg/dl,Y,33372841
+19,Monocyte.percent,HEMATOLOGY,%,Y,23403051
+20,Mean corpuscular hemoglobin (MCH),HEMATOLOGY,pg,Y,28101738
+21,Lymphocyte.absolute,HEMATOLOGY,x10^3/ul,Y,22527789
+22,Neutrophil.absolute,HEMATOLOGY,x10^3/ul,Y,23459974
+23,Aspartate aminotransferase (AST),CHEMISTRY,u/l,Y,19814633
+25,Neutrophil.percent,HEMATOLOGY,%,Y,23722312
+26,Glucose.fasting,CHEMISTRY,mg/dl,Y,1132455
+27,Albumin,CHEMISTRY,g/dl,Y,20164799
+28,Lymphocyte.percent,HEMATOLOGY,%,Y,23769398
+29,Basophil.percent,HEMATOLOGY,%,Y,21670004
+30,Chloride (Cl),CHEMISTRY,mmol/l,Y,32885537
+31,Monocyte.absolute,HEMATOLOGY,x10^3/ul,Y,22024332
+32,Alkaline phosphatase.total (ALP),CHEMISTRY,u/l,Y,19149824
+33,Eosinophil.absolute,HEMATOLOGY,x10^3/ul,Y,21292098
+34,Bicarbonate (HCO3),CHEMISTRY,mmol/l,Y,3645576

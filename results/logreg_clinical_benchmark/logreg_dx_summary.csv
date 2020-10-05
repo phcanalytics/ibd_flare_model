@@ -1,0 +1,9 @@
+,DxStatistic,Value
+0,Sensitivity,0.678
+1,Specificity,0.511
+2,Positive Predictive Value,0.164
+3,Negative Predictive Value,0.918
+4,False Positive Rate,0.489
+5,False Negative Rate,0.322
+6,False Discovery Rate,0.836
+7,Accuracy,0.532

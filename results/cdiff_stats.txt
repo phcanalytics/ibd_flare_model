@@ -1,0 +1,4 @@
+Outpatient corticosteroid events with possible C-Diff misclassification
+
+    cortsteroid_count  cdiff_count  prop_cdiff
+0              68662         4101         6.0

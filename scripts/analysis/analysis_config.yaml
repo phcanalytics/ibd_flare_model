@@ -1,0 +1,49 @@
+outcome:
+  date_modified: 2020-03-06
+  flare_v1: flare_v1
+features:
+  date_modified: 2020-03-06
+  patient_indicator:
+    categorical:
+    - gender
+    - immuno_med
+    numeric:
+    - age
+    other:
+    - prev_flare_v1_sum
+  labs:
+    labs_base:
+    - blood_urea_nitrogen_mgdl_base
+    - calcium_total_mgdl_base
+    - chloride_mmoll_base
+    - creatinine_mgdl_base
+    - glucose_random_mgdl_base
+    - mean_corpuscular_volume_fl_base
+    - platelet_count_x103ul_base
+    - potassium_mmoll_base
+    - sodium_mmoll_base
+    - white_blood_cell_count_x103ul_base
+    labs_mean:
+    - blood_urea_nitrogen_mgdl_mean
+    - calcium_total_mgdl_mean
+    - chloride_mmoll_mean
+    - creatinine_mgdl_mean
+    - glucose_random_mgdl_mean
+    - mean_corpuscular_volume_fl_mean
+    - platelet_count_x103ul_mean
+    - potassium_mmoll_mean
+    - sodium_mmoll_mean
+    - white_blood_cell_count_x103ul_mean
+    labs_max:
+    - blood_urea_nitrogen_mgdl_max
+    - calcium_total_mgdl_max
+    - chloride_mmoll_max
+    - creatinine_mgdl_max
+    - glucose_random_mgdl_max
+    - mean_corpuscular_volume_fl_max
+    - platelet_count_x103ul_max
+    - potassium_mmoll_max
+    - sodium_mmoll_max
+    - white_blood_cell_count_x103ul_max
+    labs_mean_acc: []
+    labs_max_acc: []

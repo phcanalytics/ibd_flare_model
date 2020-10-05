@@ -1,0 +1,8 @@
+INTERACTION_TYPE,N_ENC,VISIT_DATE,PTID,avg_visit_n
+Urgent care,39063,34112,12271,2.8
+Office or clinic patient,6311265,4256400,122133,34.9
+Ambulatory patient services,4914223,2786941,115692,24.1
+Observation patient,69114,51886,24823,2.1
+Emergency patient,663910,350122,67791,5.2
+Day surgery patient,337636,227515,70854,3.2
+Inpatient,894827,450101,64932,6.9

@@ -1,0 +1,7 @@
+,disease_category,flare_v1,n_visits,n_unique_persons,prop_visits,prop_unique_person
+0,crohns disease,0,268217,41392,0.864,0.79
+1,crohns disease,1,42249,10987,0.136,0.21
+2,indeterminate colitis,0,111049,12317,0.82,0.729
+3,indeterminate colitis,1,24441,4574,0.18,0.271
+4,ulcerative colitis,0,249702,39088,0.916,0.854
+5,ulcerative colitis,1,22774,6684,0.084,0.146

@@ -1,0 +1,7 @@
+,median,lower95,upper95
+sensitivity,0.739,0.732,0.745
+specificity,0.719,0.715,0.721
+ppv,0.293,0.287,0.298
+npv,0.946,0.944,0.947
+accuracy,0.721,0.719,0.724
+roc_auc,0.8,0.795,0.803
