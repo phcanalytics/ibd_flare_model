@@ -1,8 +1,7 @@
 # ibd_flare_model
 
-### Genentech Project Data Scientists:</b> Ryan Gan and Diana Sun
-### Email about repository: ganr1@gene.com
-### Date Created: 2019-01-01 
+#### Genentech Project Data Scientists:</b> Ryan Gan and Diana Sun
+#### Email about repository: ganr1@gene.com
 
 </br>
 
