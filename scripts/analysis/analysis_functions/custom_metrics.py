@@ -221,3 +221,67 @@ def readable_variables(feature_list):
                       else w for w in readable_vars]
     # returns list of readable names
     return(readable_vars)
+
+"""Decision curve net benefit analysis function (DCA)
+
+    Equation:
+    
+    odds_pt = ( prob thresh / (1 - prob thresh) )
+    
+    Net benefit = (true positive / n) - ((false negative / n) * odds_pt)
+
+"""
+    
+def dca(true_class, model_pred_prob, n_thresholds = 100):
+    
+    # probability thresholds to calculate
+    # (note goes from 0.01 to 0.99 to avoid division by 0)
+    pt_vals = numpy.linspace(0.01, 0.99, n_thresholds)
+    
+    # lists to append values to for a given threshold
+    net_benefit = []
+    sensitivity = []
+    specificity = []
+    
+    for pt in pt_vals:
+        pred_class = numpy.where(model_pred_prob >= pt, 1, 0 )
+
+        # crosstabulation / confusion matrix 
+        cm = confusion_matrix(true_class, pred_class)
+        
+        # sensitivity value for a given threshold
+        sn = cm[1][1] / cm[1].sum()
+        # specificity value for a given threshold
+        sp = cm[0][0] / cm[0].sum()
+
+        # true positives number from confusion matrix
+        true_pos = cm[1][1]
+        # false positives number from confusion matrix
+        false_pos = cm[0][1]
+
+        # sample size number
+        samp_n = cm.sum()
+
+        # threshold ratio
+        thresh_odds = ( pt / (1 - pt) )
+
+        # net benefit formula
+        net_ben = ( true_pos / samp_n ) - ( ( false_pos / samp_n ) * thresh_odds )
+        
+        # append to list
+        net_benefit.append(net_ben)
+        sensitivity.append(sn)
+        specificity.append(sp)
+    
+    # create dataframe of threshold values and net benefit
+    df = pandas.DataFrame(
+        {
+            'prob_thresh': pt_vals , 
+            'net_benefit': net_benefit , 
+            'sensitivity': sensitivity , 
+            'specificity': specificity
+        }
+    )
+    
+    # return pandas dataframe
+    return( df )

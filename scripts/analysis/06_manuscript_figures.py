@@ -11,17 +11,20 @@ This script consolidates results found in the results folders for the
 """
 Modules
 """
+# %%
 import pandas as pd
+import numpy as np
 # plots
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 import seaborn as sns; sns.set_style('whitegrid')
 # import custom function to make names easier to read
 from analysis_functions.custom_metrics import readable_variables
+from analysis_functions.custom_metrics import dca
 # os and yaml
 import os
 import yaml
-
+# %%
 """
 Setup
 """
@@ -37,13 +40,15 @@ results_folder = root_dir + '/results/manuscript/'
 """
 FIGURE 2:
 
-Combined ROC curve for RF model and Logistic with L1 penalization (lasso) model
+Combined ROC curve for RF model and Logistic with L1 penalization (lasso) model.
+Note as of 2021-05-10 added DCA plot as well.
 
 This figure uses the sensivity (tpr), 1-specificity (fpr) dataframes generated
 in model scripts for rf_longituindal_flarev1_prev_flare and 
 logreg_regularization
 """
-
+### Load ROC results ###
+# %%
 # benchmark clinical features logistic regression
 benchmark_path = (root_dir + "/results/logreg_clinical_benchmark/" + 
                   "logreg_roc.csv")
@@ -98,8 +103,79 @@ rf_auc = ('Random Forest : Demographic+Lab (AUC={0}, 95%CI: {1}-{2})'
                   rf_auc_intervals[2].round(3),
                   rf_auc_intervals[3].round(3)))
 
+
+### DCA caclulations ###
+
+# benchmark clinical values only
+logreg_bench = pd.read_csv('../../results/logreg_clinical_benchmark/logreg_pred.csv')
+
+# add in bayes corrected probability to benchmark model
+def bayes(obs_pred, pop_prop):
+    bayes_pred = (
+        (obs_pred * pop_prop) / ((obs_pred * pop_prop) + (1-obs_pred)*(1-pop_prop))
+    )
+    return(bayes_pred)
+
+# calculate pop_prop for flare (this is also the prevalence)
+pop_prop_flare = logreg_bench['flare_true'].sum() / logreg_bench['flare_true'].count()
+
+
+# apply formula to add bayes corrected probablity back in to the benchmark dataframe
+logreg_bench['bayes_prob'] = [
+    bayes(obs_pred = x, pop_prop = pop_prop_flare) 
+    for x in logreg_bench['flare_pred_prob']
+]
+
+# logreg lasso
+logreg = pd.read_csv('../../results/logreg_regularization/logreg_pred.csv')
+
+# random forest
+rf = pd.read_csv('../../results/rf/rf_pred.csv')
+
+### Calculate net benefits for models based on bayes probabilities ### 
+
+# logreg benchmark clinical only
+logreg_bench_net_ben = dca(
+    true_class = logreg_bench['flare_true'], 
+    model_pred_prob = logreg_bench['bayes_prob']
+)
+
+# logistic clinical + labs
+logreg_net_ben = dca(
+    true_class = logreg['flare_true'], 
+    model_pred_prob = logreg['bayes_prob']
+)
+
+# random forest net benefit
+rf_net_ben = dca(
+    true_class = rf['flare_true'],
+    model_pred_prob = rf['bayes_prob']
+)
+
+
+# All treatment net benefit
+# note the prevalence of flare events in the testing dataset is the same across models
+pt_vals = np.linspace(0.01, 0.99, 100)
+
+pt_odds = pt_vals / (1 - pt_vals)
+
+# all treated net benefit based on pt_val thresholds
+all_treat_net_benefit = pop_prop_flare - (1 - pop_prop_flare) * pt_odds
+
+
+### FIGURE 2: A. ROC plot B. DCA plot ####
+
 ### ROC plot ###
-plt.figure(figsize=(10,10))
+
+fig = plt.figure(figsize=(8,10), constrained_layout=True)
+# add grid spec
+gs = fig.add_gridspec(nrows = 3, ncols = 1)
+
+# roc plot
+ax1 = fig.add_subplot(gs[:2, :])
+# set title
+ax1.set_title('A', size = 15, loc = 'left')
+# line width
 lw = 2
 # benchmark plot
 plt.plot(benchmark_roc_df['fpr'], 
@@ -108,7 +184,7 @@ plt.plot(benchmark_roc_df['fpr'],
          lw=lw, 
          linestyle=':',
          label=benchmark_auc)
-# cd plot
+
 # logreg lasso plot
 plt.plot(lr_roc_df['fpr'], 
          lr_roc_df['tpr'],
@@ -127,10 +203,71 @@ plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.0])
 plt.xlabel('1-Specificity')
 plt.ylabel('Sensitivity')
-plt.title('ROC')
+#plt.title('A. Receiver Operating Characteristics Curve', loc = 'left')
 plt.legend(loc="lower right")
+
+### DCA Plot ###
+ax2 = fig.add_subplot(gs[2, :])
+# add title
+ax2.set_title('B', size = 15, loc = 'left')
+# all treated net benefit threshold
+plt.plot(
+    pt_vals , # thresholds
+    all_treat_net_benefit , 
+    color = 'darkblue' , 
+    lw = lw , 
+    linestyle = '--' , 
+    label = 'Intervention for All'
+)
+
+# no treatment net benefit
+plt.plot(
+    [0, 1],
+    [0, 0], 
+    color = 'grey', 
+    lw = lw, 
+    linestyle='--', 
+    label = 'Intervention for None'
+)
+
+# benchmark plot
+plt.plot(
+    logreg_bench_net_ben['prob_thresh'], 
+    logreg_bench_net_ben['net_benefit'],
+    color = '#00C9FF',
+    lw = lw, 
+    linestyle = ':',
+    label = 'Benchmark Logistic: Demographic'
+)
+
+# logreg lasso plot
+plt.plot(
+    logreg_net_ben['prob_thresh'], 
+    logreg_net_ben['net_benefit'],
+    color = '#f80759',
+    lw = lw, 
+    linestyle = '-.',
+    label = 'Logistic: Demographic+Lab'
+)
+
+# rf plot
+plt.plot(
+    rf_net_ben['prob_thresh'], 
+    rf_net_ben['net_benefit'],
+    color = '#203A43',
+    lw = lw, 
+    label = 'Random Forest : Demographic+Lab'
+)
+
+
+plt.xlim([0.0, 0.5])
+plt.ylim([-0.025, 0.125])
+plt.xlabel('Probability Threshold')
+plt.ylabel('Net Benfit')
+plt.legend(loc="upper right")
+
 # save roc plot; pass white facecolor to save
-plt.savefig(results_folder + "fig2_roc_plot.png", 
+plt.savefig(results_folder + "fig2_roc_dca_plot.png", 
             facecolor = 'white', dpi = 300)
 
 """
@@ -217,6 +354,7 @@ plt.xlabel('1-Specificity')
 plt.ylabel('Sensitivity')
 plt.title('Random Forest ROC for IBD Subgroups')
 plt.legend(loc="lower right")
+# %%
 # save roc plot; pass white facecolor to save
 plt.savefig(results_folder + "ibd_subgroup_rf_roc_plot.png", 
             facecolor = 'white', dpi = 300)
@@ -378,3 +516,7 @@ plt.tight_layout(pad=2, w_pad=2, h_pad=2)
 # note, I saved as png
 plt.savefig(results_folder + "rf_vif_ibd_subgroups_plot.png", 
             facecolor = 'white')
+
+
+
+# %%
