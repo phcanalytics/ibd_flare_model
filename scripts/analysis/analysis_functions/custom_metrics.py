@@ -233,6 +233,21 @@ def readable_variables(feature_list):
 """
     
 def dca(true_class, model_pred_prob, n_thresholds = 100):
+    """dca: Decision curve net benefit analysis function (DCA)
+
+    Equation:
+    
+        odds_pt = ( probability threshold / (1 - probability threshold) )
+    
+        Net benefit = (true positive / n) - ((false negative / n) * odds_pt)
+
+    true_class: Takes a 1d array/vector of the true 1 or 0 values.
+    
+    model_pred_prob: Takes the predicted probabilities from the trained 
+        model.
+        
+    n_thresholds: Number of thresholds to create from 0.01 to 0.99.
+    """
     
     # probability thresholds to calculate
     # (note goes from 0.01 to 0.99 to avoid division by 0)

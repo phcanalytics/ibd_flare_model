@@ -104,7 +104,7 @@ rf_auc = ('Random Forest : Demographic+Lab (AUC={0}, 95%CI: {1}-{2})'
                   rf_auc_intervals[3].round(3)))
 
 
-### DCA caclulations ###
+### DCA calculations ###
 
 # benchmark clinical values only
 logreg_bench = pd.read_csv('../../results/logreg_clinical_benchmark/logreg_pred.csv')
