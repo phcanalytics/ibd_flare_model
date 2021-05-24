@@ -270,6 +270,10 @@ plt.legend(loc="upper right")
 plt.savefig(results_folder + "fig2_roc_dca_plot.png", 
             facecolor = 'white', dpi = 300)
 
+# jpg save roc plot; pass white facecolor to save
+plt.savefig(results_folder + "fig2_roc_dca_plot.jpg", 
+            facecolor = 'white', dpi = 300)
+
 """
 Combined ROC curve for ulcerative colitis, crohn's disease,
 and indeterminate colitis subgroups using random forest model
