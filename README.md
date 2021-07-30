@@ -24,7 +24,7 @@ hidden and not included as we no longer have access to data due to data use agre
 - `scripts`: Two sub folders in this folder. 
   - `analysis`: Contains the scripts to fit and test predictive models
   - `sql_query`: Contains SQL queries and scripts to build the analysis
-   dataframe to use in analyses.
+   dataframe to use in analyses. Requires Optum license and data cut of IBD patients.
 
 - `results`: Folder that contains results. See overview in analysis 
   folder for where specific model results are saved.  
