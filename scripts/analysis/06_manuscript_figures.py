@@ -386,6 +386,7 @@ plt.savefig(results_folder + "rf_vif_plot.png",
             facecolor = 'white')
 
 
+# %%
 """
 Subgroup plots these models need to be ran again with subset of 
 labs
@@ -409,18 +410,21 @@ sns.barplot(x='VIF', y='readable_vars',
 ax[0].set_ylabel('')
 # hide vif x label
 ax[0].xaxis.label.set_visible(False)
+# ax title
+ax[0].title.set_text('Ulcerative Colitis')
 # cd plot
 sns.barplot(x='VIF', y='readable_vars', 
             data = cd_vif.loc[:9], color='#f80759', ax=ax[1])
-ax[1].set_ylabel("Top 10 Features for Crohn's Disease")
+ax[1].set_ylabel("Top 10 Features")
 ax[1].xaxis.label.set_visible(False)
+# ax title
+ax[1].title.set_text("Crohn's Disease")
 # ic plot
 sns.barplot(x='VIF', y='readable_vars', 
             data = ic_vif.loc[:9], color='#203A43', ax=ax[2])
 ax[2].set_ylabel("")
-# set overall title above top plot
-ax[0].set_title("Random Forest Variable Importance to Predict Flare\n" +
-                "by Inflammatory Bowel Disease Subgroup")
+ax[2].title.set_text("Indeterminate Colitis")
+
 # align y label
 fig.align_ylabels(ax)
 plt.tight_layout(pad=2, w_pad=2, h_pad=2)
@@ -428,8 +432,9 @@ plt.tight_layout(pad=2, w_pad=2, h_pad=2)
 # save vif plot; pass white facecolor to save
 # note, I saved as png
 plt.savefig(results_folder + "rf_vif_ibd_subgroups_plot.png", 
-            facecolor = 'white')
+           facecolor = 'white')
 
+# %%
 """
 Logistic model standardized coefficients
 """
@@ -484,43 +489,5 @@ plt.savefig(root_dir + "/results/manuscript/logistic_or_plot.png",
 """
 Note: SHAP plots are made in the rf_shap script and results are saved in that folder.
 """
-
-"""
-Combined VIF plots for IBD Subgroups
-"""
-# read ulcerative colitis vif csv
-uc_vif = pd.read_csv('../../results/rf_uc/rf_uc_vif.csv')
-# read crohn's disease vif csv 
-cd_vif = pd.read_csv('../../results/rf_cd/rf_cd_vif.csv')
-# read indeterminate colitis vif csv
-ic_vif = pd.read_csv('../../results/rf_ic/rf_ic_vif.csv')
-
-# set up subplot
-fig, ax = plt.subplots(nrows=3, ncols=1, figsize=(8,8), sharex=True)
-# uc plot
-sns.barplot(x='VIF', y='Features', data = uc_vif.loc[:10], color='darkblue', ax=ax[0])
-ax[0].set_ylabel('Top 10 Features for Ulcerative Colitis')
-# hide vif x label
-ax[0].xaxis.label.set_visible(False)
-# cd plot
-sns.barplot(x='VIF', y='Features', data = cd_vif.loc[:10], color='red', ax=ax[1])
-ax[1].set_ylabel("Top 10 Features for Crohn's Disease")
-ax[1].xaxis.label.set_visible(False)
-# ic plot
-sns.barplot(x='VIF', y='Features', data = ic_vif.loc[:10], color='grey', ax=ax[2])
-ax[2].set_ylabel("Top 10 Features for Indeterminate Colitis")
-# set overall title above top plot
-ax[0].set_title("Random Forest Variable Importance to Predict Flare\n" +
-                "by Inflammatory Bowel Disease Subgroup")
-# align y label
-fig.align_ylabels(ax)
-plt.tight_layout(pad=2, w_pad=2, h_pad=2)
-
-# save vif plot; pass white facecolor to save
-# note, I saved as png
-plt.savefig(results_folder + "rf_vif_ibd_subgroups_plot.png", 
-            facecolor = 'white')
-
-
 
 # %%
