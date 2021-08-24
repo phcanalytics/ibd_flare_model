@@ -1,4 +1,4 @@
-# ibd_flare_model
+# Predictive models for flares in inflammatory bowel disease
 
 #### Genentech Project Data Scientists:</b> Ryan Gan and Diana Sun
 #### Email about repository: ganr1@gene.com
@@ -7,7 +7,8 @@
 
 Public repository of the predictive models for the manuscript:
 
-<b>Title:</b> Machine learning algorithm can help predict hospitalization and outpatient corticosteroid use in patients with inflammatory bowel disease: a replication study.
+<b>Title:</b> Replicating prediction algorithms for hospitalization and 
+corticosteroid use in patients with inflammatory bowel disease.
 
 <b>Authors:</b> Ryan Gan, Diana Sun, Amanda Tatro, Shirley 
 Cohen-Mekelburg, Wyndy L. Wiitala, Ji Zhu, Akbar K. Waljee.
